@@ -235,9 +235,7 @@ button,input{font:inherit;color:inherit}
 .hero-frame .fg{position:relative;height:100%;width:auto;margin:0 auto;object-fit:contain}
 #view-detail .footer{margin-top:0}
 
-:root{--surface-pop:#ffffff;--card-hover:#ffffff;--on-ink:#fff;--nav-bg:rgba(253,252,252,.86);--chip-bg:rgba(253,252,252,.92);--logo-chip:transparent}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--eggshell:#141312;--taupe:#1c1a18;--stone:#2f2c29;--ink:#f5f3f1;--graphite:#d8d3cc;--smoke:#a8a199;--ash:#7d776f;--btn-border:#34312d;--on-ink:#141312;--nav-bg:rgba(20,19,18,.86);--chip-bg:rgba(20,19,18,.9);--logo-chip:#fdfcfc;--card-hover:#2a2724;--surface-pop:#211f1d;color-scheme:dark}}
-:root[data-theme="dark"]{--eggshell:#141312;--taupe:#1c1a18;--stone:#2f2c29;--ink:#f5f3f1;--graphite:#d8d3cc;--smoke:#a8a199;--ash:#7d776f;--btn-border:#34312d;--on-ink:#141312;--nav-bg:rgba(20,19,18,.86);--chip-bg:rgba(20,19,18,.9);--logo-chip:#fdfcfc;--card-hover:#2a2724;--surface-pop:#211f1d;color-scheme:dark}
+:root{--surface-pop:#ffffff;--card-hover:#ffffff;--on-ink:#fff;--nav-bg:rgba(253,252,252,.86);--chip-bg:rgba(253,252,252,.92);--logo-chip:transparent;color-scheme:light}
 .btn-primary{color:var(--on-ink)}
 .nav{background:var(--nav-bg);top:env(safe-area-inset-top,0px)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--eggshell)}
@@ -320,9 +318,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 #hero.hero{background:#E7F0FD}
 #hero .search{background:#fff;box-shadow:0 0 0 1px rgba(20,40,80,.08),0 2px 6px rgba(20,40,80,.06),0 10px 24px rgba(20,40,80,.06)}
 #hero .sub{color:var(--graphite)}
-:root[data-theme=dark] #hero.hero{background:#1b2a40}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]) #hero.hero{background:#1b2a40}}
-
 /* Arrow fill button animation (ported from Hyperiux ArrowFillButton; our styles kept) */
 .afb{position:relative;overflow:hidden;isolation:isolate;--ease-afb:cubic-bezier(.785,.135,.15,.86);--dur-afb:.45s;--iy:calc((100% - var(--ic)) / 2)}
 .read-cta.afb{--ic:36px;--ir:4px;--fill-bg:var(--ink);--fill-tx:var(--on-ink)}
