@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>[hidden]{display:none!important}body{margin:0}.nav-links .btn{font-size:clamp(16px,1.25vw,18px)}
+.lt-view{overflow:hidden;position:relative}
+.lt-view .latest-list{transition:transform .7s cubic-bezier(.65,0,.35,1)}
+.latest-hero .lt-view .latest-list li:last-child{border-bottom:1px solid var(--stone)}
+@media (prefers-reduced-motion:reduce){.lt-view .latest-list{transition:none}}
 </style>
 <title>Sebenarnya.my</title>
 <meta name="description" content="Semak kesahihan berita dan isu tular di Malaysia sebelum kongsi.">
@@ -1158,6 +1162,43 @@ document.getElementById('pg-next').onclick=()=>{location.hash='halaman-2'};
   body.addEventListener('focusin',function(){clearInterval(t)});body.addEventListener('focusout',restart);
   window.addEventListener('resize',function(){place(false)});
   place(false);restart();
+})();
+</script>
+<script>
+(function(){
+  var aside=document.querySelector('.latest-hero');if(!aside)return;
+  var list=aside.querySelector('.latest-list');var VIS=3;
+  var seen={};list.querySelectorAll('a').forEach(function(a){seen[a.getAttribute('href')]=1});
+  document.querySelectorAll('.rail-track .post').forEach(function(p){
+    var a=p.querySelector('.card-title a'),st=p.querySelector('.status'),pm=p.querySelector('.pm');if(!a||!st)return;
+    var h=a.getAttribute('href');if(seen[h])return;seen[h]=1;
+    var li=document.createElement('li');
+    li.innerHTML='<a href="'+h+'"><span class="lt-meta"></span><span class="lt-title"></span><span class="lt-foot post-meta"><span class="'+st.className+'"></span><span class="pm"></span></span></a>';
+    li.querySelector('.lt-meta').textContent=p.dataset.cat||'';
+    li.querySelector('.lt-title').textContent=a.textContent;
+    li.querySelector('.status').textContent=st.textContent;
+    li.querySelector('.pm').textContent=(pm?pm.textContent:'').replace(/^Tular:\s*/,'');
+    list.appendChild(li);
+  });
+  if(list.children.length<=VIS)return;
+  var view=document.createElement('div');view.className='lt-view';list.parentNode.insertBefore(view,list);view.appendChild(list);
+  function itemH(i){return list.children[i].getBoundingClientRect().height}
+  function fit(){var h=0;for(var i=0;i<VIS;i++)h+=itemH(i);view.style.height=h+'px'}
+  var busy=false,t;
+  function step(){
+    if(busy||document.hidden)return;busy=true;
+    list.style.transform='translateY(-'+itemH(0)+'px)';
+    setTimeout(function(){
+      list.style.transition='none';list.appendChild(list.firstElementChild);list.style.transform='';
+      list.offsetHeight;list.style.transition='';fit();busy=false;
+    },matchMedia('(prefers-reduced-motion:reduce)').matches?0:720);
+  }
+  function start(){stop();t=setInterval(step,4000)}
+  function stop(){clearInterval(t)}
+  ['mouseenter','focusin'].forEach(function(e){aside.addEventListener(e,stop)});
+  ['mouseleave','focusout'].forEach(function(e){aside.addEventListener(e,start)});
+  window.addEventListener('resize',fit);
+  fit();start();
 })();
 </script>
 </body>
